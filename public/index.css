@@ -1,0 +1,319 @@
+.content {
+  background-color: bisque;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+.card-link {
+  text-decoration: none;
+}
+.navbar-custom-fixed {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-button-custom {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.profile-button-custom img {
+  border: 2px solid #155263;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.profile-button-custom:hover img {
+  transform: scale(1.08);
+  border-color: #ffc93c;
+}
+
+.drawer-custom {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: white;
+  box-shadow: -3px 0 15px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 1040;
+  overflow-y: auto;
+}
+
+.drawer-custom.open {
+  right: 0;
+}
+
+.drawer-overlay-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1035;
+}
+
+.drawer-overlay-custom.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Add padding only to body for fixed navbar */
+body {
+  padding-top: 70px;
+}
+.view {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.navbar {
+  margin-bottom: 1rem;
+}
+.newform .row,
+.reviewform .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.newform {
+  margin-left: auto;
+  margin-right: auto;
+}
+.main-card {
+  display: flex;
+  justify-content: center;
+}
+.reviewmain {
+  width: 100;
+  display: flex;
+  justify-content: center;
+}
+.reviewmain .card.review .card-body.review {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-body.review {
+  width: 70%%;
+}
+.newform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.All-card.row {
+  width: 85%;
+}
+.card {
+  margin: 1rem;
+}
+.card.text-center.footer {
+  background-color: black;
+  color: white;
+}
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-content {
+  flex: 1;
+}
+footer {
+  width: 100%;
+}
+.reviewcard {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.reviewbody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#review {
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comments-section {
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.comment-avatar {
+  margin-right: 20px;
+}
+
+.comment-avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.comment-body {
+  flex: 1;
+}
+
+.comment-author {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.comment-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.comment-date {
+  font-size: 14px;
+  color: #999;
+  margin-top: 10px;
+}
+
+.display-section {
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+.display-card {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.display-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.display-title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.display-author {
+  font-size: 16px;
+  color: #666;
+}
+
+.display-author span {
+  font-weight: bold;
+}
+
+.display-body {
+  margin-bottom: 20px;
+}
+
+.display-description {
+  font-size: 16px;
+  color: #666;
+}
+
+.display-footer {
+  text-align: center;
+}
+
+.read-more-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.read-more-btn:hover {
+  background-color: #23527c;
+}
+
+.read-more-btn:focus {
+  box-shadow: none;
+}
+.rating {
+  font-size: 24px;
+  color: #ffd700;
+}
+
+.rating.star {
+  margin-right: 5px;
+}
+
+.rating.star:last-child {
+  color: #ccc;
+}
+.searchbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.searchbar div form input {
+  width: 25rem;
+}
+.signuploginform form div input {
+  width: 25rem;
+}
+@media (max-width: 900px) {
+  #specialnavbar button img {
+    position: absolute;
+    right: 2.5rem;
+    bottom: 0.1rem;
+  }
+  .searchbar div form input {
+    width: 12rem;
+  }
+  .signuploginform form div input {
+    width: 15rem;
+  }
+  .newform {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+  }
+}

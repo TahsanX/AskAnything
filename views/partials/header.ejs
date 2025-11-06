@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+  <body>
+    <div
+      class="drawer-overlay-custom"
+      id="drawerOverlay"
+      onclick="closeDrawer()"
+    ></div>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-custom-fixed">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/all">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/all"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/all/new">Add Problems</a>
+            </li>
+            <% if(!token){ %>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup">Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <% } %>
+          </ul>
+
+          <% if (token) { %>
+          <button
+            class="profile-button-custom"
+            onclick="toggleDrawer()"
+            aria-label="Open profile menu"
+          >
+            <img src="<%= personDetails.image %>" alt="Profile" />
+          </button>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+
+    <% if (token) { %>
+    <div class="drawer-custom" id="appDrawer">
+      <div class="p-4">
+        <button
+          type="button"
+          class="btn-close float-end"
+          onclick="closeDrawer()"
+          aria-label="Close"
+        ></button>
+
+        <div class="text-center mt-5 mb-4">
+          <img
+            src="<%= personDetails.image %>"
+            alt="Profile"
+            style="
+              border: 4px solid #ffc93c;
+              height: 5rem;
+              width: 5rem;
+              border-radius: 50%;
+              object-fit: cover;
+            "
+            class="mx-auto d-block mb-3"
+          />
+          <h5 class="mb-1"><%= personDetails.username %></h5>
+          <p class="text-muted small"><%= personDetails.email %></p>
+        </div>
+
+        <hr />
+
+        <form
+          enctype="multipart/form-data"
+          action="<%= `${personDetails._id}/edit-user` %>"
+          method="post"
+          class="mt-4"
+        >
+          <h6 class="mb-3 fw-bold">Edit Profile</h6>
+
+          <div class="mb-3">
+            <div class="form-floating">
+              <input
+                type="text"
+                name="username"
+                value="<%= personDetails.username %>"
+                class="form-control"
+                id="username"
+                placeholder="Username"
+                disabled
+              />
+              <label for="username">Username</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+              <div class="form-floating flex-fill">
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="New Password"
+                  disabled
+                />
+                <label for="password">New Password</label>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline-warning"
+                onclick="document.getElementById('password').disabled=false; document.getElementById('password').focus();"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="profileImage" class="form-label">Profile Image</label>
+            <input
+              class="form-control form-control-sm"
+              name="image"
+              id="profileImage"
+              type="file"
+              accept="image/*"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-warning w-100">
+            <i class="fas fa-save me-2"></i>Save Changes
+          </button>
+        </form>
+
+        <hr class="my-4" />
+
+        <div class="d-grid gap-2">
+          <a href="/all" class="btn btn-outline-secondary">
+            <i class="fas fa-home me-2"></i>Home
+          </a>
+          <a href="/all/new" class="btn btn-outline-secondary">
+            <i class="fas fa-plus-circle me-2"></i>Add Problems
+          </a>
+          <a href="/logout" class="btn btn-outline-danger">
+            <i class="fas fa-sign-out-alt me-2"></i>Logout
+          </a>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+    <script>
+      function toggleDrawer() {
+        const drawer = document.getElementById("appDrawer");
+        const overlay = document.getElementById("drawerOverlay");
+
+        if (drawer && overlay) {
+          drawer.classList.toggle("open");
+          overlay.classList.toggle("active");
+        }
+      }
+
+      function closeDrawer() {
+        const drawer = document.getElementById("appDrawer");
+        const overlay = document.getElementById("drawerOverlay");
+
+        if (drawer && overlay) {
+          drawer.classList.remove("open");
+          overlay.classList.remove("active");
+        }
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeDrawer();
+        }
+      });
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

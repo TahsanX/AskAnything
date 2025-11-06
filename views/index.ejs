@@ -1,0 +1,65 @@
+<%- include('partials/header') %> <%- include('partials/flashmessage') %>
+<div class="searchbar">
+  <div class="row">
+    <form action="/all/search" class="d-flex" method="post">
+      <input
+        class="form-control me-2"
+        type="search"
+        name="title"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+<div id="search-results"></div>
+<div class="main-card">
+  <div class="All-card row">
+    <% if (get.length===0) { %>
+    <h4 style="text-align: center; margin-top: 4rem; color: red">
+      No Item Found
+    </h4>
+    <% } %> <% for (let index = 0; index < get.length; index++) { %>
+    <div class="card col-3 col-sm-8 col-md-8" style="width: 18rem">
+      <div
+        class="card-body"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 0.5rem;
+        "
+      >
+        <h5 class="card-title"><%= get[index].Title %></h5>
+        <p class="card-title">
+          <i class="fa-solid fa-user"></i> <%= get[index].user.username %>
+        </p>
+        <p class="card-text"><%= get[index].Description %></p>
+        <a
+          class="btn btn-outline-warning btn-sm"
+          href="all/<%= get[index]._id %>/view"
+          class="card-link"
+          >View</a
+        >
+        <% if (token && get[index].user.username===usertocheck) { %>
+        <a
+          class="btn btn-outline-warning btn-sm"
+          href="all/<%= get[index]._id %>/update"
+          class="card-link"
+          >Update</a
+        >
+        <a
+          class="btn btn-outline-warning btn-sm"
+          href="all/<%= get[index]._id %>/delete"
+          class="card-link"
+          >Delete</a
+        >
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+<div class="main-content"></div>
+<%- include('partials/footer') %>

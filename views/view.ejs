@@ -1,0 +1,80 @@
+<%- include('partials/header') %>
+<section class="display-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="display-card">
+          <div class="display-header">
+            <h2 class="display-title"><%= obj.Title %></h2>
+            <p class="display-author">
+              By <span><%= obj.user.username %></span>
+            </p>
+          </div>
+          <div class="display-body">
+            <p class="display-description"><%= obj.Description %></p>
+          </div>
+          <div class="display-footer">
+            <a href="/all" class="btn btn-primary" tabindex="-1" role="button"
+              >Go back</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<form action="/all/<%= obj.id %>/reviews" method="post">
+  <%- include('partials/review') %>
+</form>
+<section class="comments-section py-5">
+  <div class="container">
+    <h2 class="display-4 mb-4">Solutions</h2>
+    <div class="row">
+      <div class="col-md-12">
+        <% for (let index = 0; index < obj.review.length; index++) { %>
+        <div class="comment mb-4">
+          <div class="comment-avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="comment-body">
+            <h5 class="comment-author">
+              <%= obj.review[index].user.username %>
+            </h5>
+            <p class="comment-text">
+              <span style="font-size: large; font-style: italic"
+                >Description: &nbsp;</span
+              ><%= obj.review[index].Solution%>
+            </p>
+            <p class="comment-text">
+              <div class="rating">
+                <% for( let p = 0; p < obj.review[index].rating; p++ )
+                { %>
+                <span class="star">&#x2605;</span>
+                <% } %> <% for( let p = 0; p < 5-obj.review[index].rating;
+                p++ ) { %>
+                <span class="star" style="color: #ccc">&#x2605;</span>
+                <% } %>
+              </div>
+            </p>
+            
+            <span class="comment-date"
+              ><%= obj.review[index].Date.toDateString();%>&nbsp;&nbsp;&nbsp; <%
+              if (obj.review[index].user.username===sessionuser.username) { %>
+              <a
+                class="btn btn-danger btn-sm delete-comment-btn"
+                href="/all/<%= obj._id %>/reviews/<%= obj.review[index]._id %>"
+                data-comment-id="2"
+                ><i class="fas fa-trash-alt"></i> Delete
+              </a>
+              <% } %>
+            </span>
+          </div>
+        </div>
+        <%} %>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="main-content"></div>
+<%- include('partials/footer') %>

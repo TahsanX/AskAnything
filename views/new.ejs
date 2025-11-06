@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+    <div class="newform">
+        <form action="/all/new" method="post" class= "needs-validation row" novalidate>
+        <div class="mb-3 col-12 col-sm-8">
+            <label for="Title" class="form-label">Title: </label>
+            <input type="text" class="form-control" required name="Title" id="Title" placeholder="Math">
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="mb-3 col-12 col-sm-8">
+            <label for="Description" class="form-label">Description: </label>
+            <textarea class="form-control" name="Description" required id="Description"  rows="3"></textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <br>
+            <button type="submit" class="btn btn-outline-success">Save</button>
+          </div>
+        </form>
+    </div>
+    <div class="main-content"></div>
+<%- include('partials/footer') %>

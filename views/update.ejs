@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<div class="newform" style="justify-content: center">
+  <form action="/all/<%=obj._id%>/update" method="post" class="row">
+    <div class="mb-3 col-12 col-sm-8 col-mb-8">
+      <label for="Title" class="form-label">Title: </label>
+      <input
+        type="text"
+        class="form-control"
+        value="<%=obj.Title%>"
+        required
+        name="Title"
+        id="Title"
+        placeholder="Math"
+      />
+    </div>
+    <div class="mb-3 col-12 col-sm-8 col-mb-8">
+      <label for="Description" class="form-label">Description: </label>
+      <textarea
+        class="form-control"
+        name="Description"
+        id="Description"
+        required
+        rows="3"
+      >
+<%=obj.Description%></textarea
+      >
+      <br />
+      <button type="submit" class="btn btn-outline-success">Update</button>
+    </div>
+  </form>
+</div>
+<div class="main-content"></div>
+<%- include('partials/footer') %>
