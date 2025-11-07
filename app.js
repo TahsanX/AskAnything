@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const MongoStore = require("connect-mongo");
+const PORT = process.env.PORT || 10000;
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const allfile = require("./routes/File");
@@ -16,10 +17,17 @@ app.use(cors());
 //express session
 app.use(
   session({
-    secret: "secretkey",
+    secret: process.env.SECRET_KEY || "secretkey",
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false, maxAge: 1000 * 60 * 60 },
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO,
+      ttl: 14 * 24 * 60 * 60, // Session valid for 14 days
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
   })
 );
 //flash
@@ -62,6 +70,9 @@ app.use((err, req, res, next) => {
   res.render("alert", { status, message });
 });
 // port listining
-app.listen(PORT, () => {
-  console.log(`Listening to port ${PORT}`);
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Listening on port ${PORT}`);
 });
+
+server.keepAliveTimeout = 120000; // 120 seconds
+server.headersTimeout = 130000; // slightly higher
